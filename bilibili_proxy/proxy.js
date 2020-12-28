@@ -8,6 +8,11 @@ exports.initializer = (context, callback) => {
 };
 */
 
+/**
+ * @description 解除b站区域限制用函数计算node脚本
+ * 
+ */
+
 exports.handler = (req, resp, context) => {
   // 设置返回类型为json,编码格式为utf-8
   resp.setHeader("Content-Type", "application/json;charset=utf-8");
