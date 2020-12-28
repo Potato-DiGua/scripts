@@ -11,24 +11,20 @@ exports.initializer = (context, callback) => {
 exports.handler = (req, resp, context) => {
   // 设置返回类型为json,编码格式为utf-8
   resp.setHeader("Content-Type", "application/json;charset=utf-8");
-  console.log(req.url);
+  //   console.log(req.url);
 
   let headers = { ...req.headers };
   delete headers["host"];
 
   let path;
-  let device;
-  const ANDROID = 0;
-  const WEB = 1;
 
   if (req.queries.device === "android") {
+    //android解析
     path = "/pgc/player/api/playurl";
     headers["user-agent"] = "Bilibili Freedoooooom/MarkII";
-    console.log("android设备");
-    device = ANDROID;
   } else {
+    // web解析
     path = "/pgc/player/web/playurl";
-    device = WEB;
   }
 
   let options = {
@@ -38,29 +34,30 @@ exports.handler = (req, resp, context) => {
     path: path + req.url.substring(req.url.indexOf("?")),
   };
 
-  console.log(options);
+  //   console.log(options);
 
   http
-    .get(options, (res) => {
+    .get(options, (response) => {
       let result = "";
-      if (res.statusCode !== 200) {
+
+      if (response.statusCode !== 200) {
         resp.send(
-          JSON.stringify({ msg: "错误", url: res.url, status: res.statusCode })
+          JSON.stringify({
+            msg: "错误",
+            url: response.url,
+            status: response.statusCode,
+          })
         );
         return;
       }
-      res.setEncoding("utf-8");
-      res.on("data", (data) => {
+
+      response.setEncoding("utf-8");
+
+      response.on("data", (data) => {
         result += data;
       });
-      res.on("end", () => {
-        if (device === ANDROID) {
-          // for (let key in res.headers) {
-          //     resp.setHeader(key, res.headers[key]);
-          // }
-          resp.headers = { ...res.headers };
-        }
-        console.log(resp.headers);
+
+      response.on("end", () => {
         resp.setStatusCode(200);
         resp.send(result);
       });
