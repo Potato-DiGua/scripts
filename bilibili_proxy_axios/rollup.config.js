@@ -1,20 +1,20 @@
 import resolve from "@rollup/plugin-node-resolve";
 import common from "@rollup/plugin-commonjs";
-import json from "@rollup/plugin-json";
+// import json from "@rollup/plugin-json";
+import typescriptRollup from "@rollup/plugin-typescript";
 
 export default {
-  input: "src/index.js",
+  input: "src/index.ts",
   output: {
-    file: "./build/bundle.js",
+    file: "./dist/bundle.js",
     format: "cjs",
   },
   plugins: [
-    resolve(
-    //   {
-    //   moduleDirectories: ["node_modules"],
-    // }
-    ),
-    common(),
-    json(),
+    resolve({
+      
+    }),
+    common({include:"./node_modules"}),
+    // json(),
+    typescriptRollup(),
   ],
 };
