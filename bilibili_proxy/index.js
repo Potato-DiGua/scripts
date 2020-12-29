@@ -1,4 +1,4 @@
-var http = require("http");
+var https = require("https");
 /*
 To enable the initializer feature (https://help.aliyun.com/document_detail/156876.html)
 please implement the initializer function as below：
@@ -41,7 +41,7 @@ exports.handler = (req, resp, context) => {
 
   //   console.log(options);
 
-  http
+  https
     .get(options, (response) => {
       let result = "";
 
