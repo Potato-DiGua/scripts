@@ -1,0 +1,1 @@
+Compress-Archive -Path ./src/*.js,./node_modules,./package.json -DestinationPath ./dist/target.zip -Force
