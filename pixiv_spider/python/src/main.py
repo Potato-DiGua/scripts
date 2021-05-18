@@ -78,6 +78,7 @@ def task_pages(illust_id: int):
 
 
 def task_img_download(img_url: str, name: str, delay: float = 0) -> bool:
+    path = get_img_save_path(name)
     try:
         if len(name) == 0:
             return False
@@ -91,7 +92,7 @@ def task_img_download(img_url: str, name: str, delay: float = 0) -> bool:
         logging.info(f"{img_url}({format_file_size(total_size)})开始下载")
         size = 0
 
-        with open(get_img_save_path(name), "wb") as f:
+        with open(path, "wb") as f:
             for chunk in resp.iter_content(chunk_size=4 * 1024):
                 f.write(chunk)
                 size += len(chunk)
@@ -102,6 +103,8 @@ def task_img_download(img_url: str, name: str, delay: float = 0) -> bool:
     except Exception as e:
         logging.error(img_url + "：下载失败")
         logging.exception(e)
+        if os.path.exists(path):
+            os.remove(path)
         return False
 
 
