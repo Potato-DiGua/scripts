@@ -5,9 +5,9 @@ import traceback
 
 import requests
 
-from danmu_pb2 import DmSegMobileReply
-from dmSettings_pb2 import DmWebViewReply
-from google.protobuf.json_format import MessageToDict, MessageToJson
+from danmu.danmu_pb2 import DmSegMobileReply
+from danmu.dmSettings_pb2 import DmWebViewReply
+from google.protobuf.json_format import MessageToDict
 from bs4 import BeautifulSoup
 
 
