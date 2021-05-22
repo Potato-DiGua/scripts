@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         b站历史记录-仅显示番剧
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.1.1
 // @description  b站历史记录添加番剧筛选功能
 // @author       Potato-DiGua
 // @supportURL   https://github.com/Potato-DiGua/scripts/blob/main/bilibili_bangumi_history/README.md
@@ -44,7 +44,6 @@
         });
         resizeOb.observe($("#history_list")[0])
     }
-    // hide();
     init();
 })();
 
