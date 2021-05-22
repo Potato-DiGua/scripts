@@ -2,8 +2,9 @@
 // @name         b站历史记录-仅显示番剧
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
+// @description  b站历史记录添加番剧筛选功能
 // @author       Potato-DiGua
+// @supportURL   https://github.com/Potato-DiGua/scripts/blob/main/bilibili_bangumi_history/README.md
 // @match        https://www.bilibili.com/account/history
 // @icon         http://static.hdslb.com/images/favicon.ico
 // @grant        none
