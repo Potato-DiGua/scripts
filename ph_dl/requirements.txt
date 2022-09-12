@@ -1,0 +1,17 @@
+beautifulsoup4==4.11.1
+bs4==0.0.1
+certifi==2022.6.15
+charset-normalizer==2.1.1
+commonmark==0.9.1
+cssselect==1.1.0
+idna==3.3
+lxml==4.9.1
+Pillow==9.2.0
+Pygments==2.13.0
+pyquery==1.4.3
+PySocks==1.7.1
+requests==2.28.1
+rich==12.5.1
+soupsieve==2.3.2.post1
+urllib3==1.26.12
+youtube-dl==2021.12.17
