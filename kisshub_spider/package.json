@@ -5,13 +5,19 @@
   "main": "main.js",
   "scripts": {
     "lint": "npx eslint --ext .jsx,.js,.ts,.tsx src/",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "cross-env FRAME_WORK=domchef rollup -c"
   },
   "author": "",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
-    "dom-chef": "^5.1.0"
+    "core-js": "^3.30.2",
+    "dom-chef": "^5.1.0",
+    "preact": "^10.13.0",
+    "purecss": "^3.0.0",
+    "react": "^18.2.0"
   },
+  "resolutions": {},
   "devDependencies": {
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.0",
@@ -22,18 +28,23 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.0",
-    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.14.1",
     "@types/react": "^18.0.28",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.0.1",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^2.8.4",
-    "react": "^18.2.0",
     "rollup": "^3.17.2",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "tslib": "^2.5.0",
+    "typed-css-modules": "^0.7.2",
     "typescript": "^4.9.5"
   }
 }

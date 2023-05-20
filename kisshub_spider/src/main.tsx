@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 import React from 'dom-chef';
+import styles from './css/pure.module.css';
 
 (function () {
     'use strict';
@@ -77,6 +78,8 @@ import React from 'dom-chef';
             const td = (
                 <td>
                     <button
+                        style={{marginRight: '5px'}}
+                        className={`${styles['pure-button']} ${styles['pure-button-primary']}`}
                         onClick={async () => {
                             download(await getMagnetUrlFromNet(href));
                         }}
@@ -84,6 +87,7 @@ import React from 'dom-chef';
                         下载
                     </button>
                     <button
+                        className={`${styles['pure-button']} ${styles['pure-button-primary']}`}
                         onClick={async () => {
                             const magnetUrl = await getMagnetUrlFromNet(href);
                             copyText(magnetUrl);
