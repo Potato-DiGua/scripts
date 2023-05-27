@@ -12,9 +12,9 @@
 // @run-at document-end
 // ==/UserScript==
 
-import React from 'dom-chef';
 import pure from './css/pure.module.css';
 import styles from './css/index.module.css';
+import { defineComponent, html, reactive, render } from './vue-lit';
 
 (function () {
     'use strict';
@@ -64,46 +64,50 @@ import styles from './css/index.module.css';
         return '';
     }
 
+
+    defineComponent('quick-download', (props: { href: string }) => {
+        const state = reactive({
+            loading: false
+        });
+
+        return html`
+            <td>
+                <button
+                    style="marginRight: '5px'"
+                    class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
+                    @click=${async () => {
+                try {
+                    state.loading = true
+                    download(await getMagnetUrlFromNet(props.href));
+                } finally {
+                    state.loading = false
+                }
+            }}
+                    >
+                        下载
+                        <span class=${styles.loading} style=${state.loading ? "" : "display: none"}></span>
+                </button>
+                <button
+                    class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
+                    @click=${async () => {
+                const magnetUrl = await getMagnetUrlFromNet(props.href);
+                copyText(magnetUrl);
+            }}
+                >
+                    复制磁力链接
+                </button>
+            </td>
+        `
+    })
+
     function addExtraBtn() {
         const head = document.querySelector('#listTable > thead > tr')!;
-        const th = (
-            <th axis="string" className="l8 tableHeaderOver">
-                动作
-            </th>
-        );
-        head.appendChild(th);
+        render(() => html`<th axis="string" class="l8 tableHeaderOver">动作</th>`, head)
         const trs = document.querySelectorAll('#data_list > tr');
         trs.forEach((tr) => {
             const href = tr.querySelector('td:nth-child(3) > a').href;
-            const loading = <span className={styles.loading} style={{display: 'none'}}></span>
-            const downloadBtn = ( <button
-                style={{marginRight: '5px'}}
-                className={`${pure['pure-button']} ${pure['pure-button-primary']}`}
-                onClick={async () => {
-                    loading.setAttribute('style', '')
-                    download(await getMagnetUrlFromNet(href));
-                    loading.setAttribute('style', 'display: none');
-                }}
-            >
-                下载
-                {loading}
-            </button>)
 
-            const td = (
-                <td>
-                   {downloadBtn}
-                    <button
-                        className={`${pure['pure-button']} ${pure['pure-button-primary']}`}
-                        onClick={async () => {
-                            const magnetUrl = await getMagnetUrlFromNet(href);
-                            copyText(magnetUrl);
-                        }}
-                    >
-                        复制磁力链接
-                    </button>
-                </td>
-            );
-            tr.appendChild(td);
+            render(() => html`<quick-download href=${href}></quick-download>`, tr)
         });
     }
 

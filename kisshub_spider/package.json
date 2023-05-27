@@ -5,14 +5,16 @@
   "main": "main.js",
   "scripts": {
     "lint": "npx eslint --ext .jsx,.js,.ts,.tsx src/",
-    "build": "cross-env FRAME_WORK=domchef rollup -c"
+    "build": "cross-env FRAME_WORK=domchef gulp build"
   },
   "author": "",
   "type": "module",
   "license": "ISC",
   "dependencies": {
+    "@vue/reactivity": "^3.3.4",
     "core-js": "^3.30.2",
     "dom-chef": "^5.1.0",
+    "lit-html": "^2.7.4",
     "preact": "^10.13.0",
     "purecss": "^3.0.0",
     "react": "^18.2.0"
@@ -39,6 +41,7 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.32.2",
+    "gulp": "^4.0.2",
     "prettier": "^2.8.4",
     "rollup": "^3.17.2",
     "rollup-plugin-cleaner": "^1.0.0",
