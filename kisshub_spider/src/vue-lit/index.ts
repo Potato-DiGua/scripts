@@ -1,4 +1,4 @@
-import { render } from 'lit-html'
+import { TemplateResult, render } from 'lit-html'
 import {
   shallowReactive,
   effect
@@ -6,7 +6,12 @@ import {
 
 let currentInstance
 
-export function defineComponent(name: string, propDefs:any, factory?: any) {
+
+export type factoryType = (props: any)=>()=>TemplateResult<1>;
+
+export function defineComponent(name: string, factory: factoryType):void;
+export function defineComponent(name: string, propDefs:string[], factory: factoryType):void;
+export function defineComponent(name: string, propDefs: any, factory?: any) {
   if (typeof propDefs === 'function') {
     factory = propDefs
     propDefs = []
@@ -31,6 +36,7 @@ export function defineComponent(name: string, propDefs:any, factory?: any) {
           if (isMounted) {
             this._bu && this._bu.forEach((cb) => cb())
           }
+          console.log('beforeRender');
           render(template(), root)
           if (isMounted) {
             this._u && this._u.forEach((cb) => cb())
@@ -65,6 +71,3 @@ export const onMounted = createLifecycleMethod('_m')
 export const onBeforeUpdate = createLifecycleMethod('_bu')
 export const onUpdated = createLifecycleMethod('_u')
 export const onUnmounted = createLifecycleMethod('_um')
-
-export * from 'lit-html'
-export * from '@vue/reactivity'

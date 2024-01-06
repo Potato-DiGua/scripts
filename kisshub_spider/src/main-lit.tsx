@@ -14,7 +14,9 @@
 
 import pure from './css/pure.module.css';
 import styles from './css/index.module.css';
-import { defineComponent, html, reactive, render } from './vue-lit';
+import { defineComponent } from './vue-lit';
+import { reactive } from '@vue/reactivity';
+import { html, render } from 'lit-html';
 
 (function () {
     'use strict';
@@ -65,34 +67,38 @@ import { defineComponent, html, reactive, render } from './vue-lit';
     }
 
 
-    defineComponent('quick-download', (props: { href: string }) => {
+    defineComponent('quick-download', ['href'],  (props: { href: string }) => {
         const state = reactive({
             loading: false
         });
 
-        return html`
+        const onDownloadClick = async () => {
+            try {
+                state.loading = true
+                download(await getMagnetUrlFromNet(props.href));
+            } finally {
+                state.loading = false
+            }
+        };
+
+        const onCopyClick = async () => {
+            const magnetUrl = await getMagnetUrlFromNet(props.href);
+            copyText(magnetUrl);
+        }
+
+        return ()=> html`
             <td>
                 <button
                     style="marginRight: '5px'"
                     class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
-                    @click=${async () => {
-                try {
-                    state.loading = true
-                    download(await getMagnetUrlFromNet(props.href));
-                } finally {
-                    state.loading = false
-                }
-            }}
+                    @click=${onDownloadClick}
                     >
                         下载
                         <span class=${styles.loading} style=${state.loading ? "" : "display: none"}></span>
                 </button>
                 <button
                     class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
-                    @click=${async () => {
-                const magnetUrl = await getMagnetUrlFromNet(props.href);
-                copyText(magnetUrl);
-            }}
+                    @click=${onCopyClick}
                 >
                     复制磁力链接
                 </button>
@@ -102,12 +108,12 @@ import { defineComponent, html, reactive, render } from './vue-lit';
 
     function addExtraBtn() {
         const head = document.querySelector('#listTable > thead > tr')!;
-        render(() => html`<th axis="string" class="l8 tableHeaderOver">动作</th>`, head)
+        render(html`<th axis="string" class="l8 tableHeaderOver">动作</th>`, head)
         const trs = document.querySelectorAll('#data_list > tr');
         trs.forEach((tr) => {
             const href = tr.querySelector('td:nth-child(3) > a').href;
 
-            render(() => html`<quick-download href=${href}></quick-download>`, tr)
+            render(html`<td><quick-download href=${href}></quick-download></td>`, tr)
         });
     }
 

@@ -15,6 +15,7 @@ export default {
             preventAssignment: true,
             values: {
                 'process.env.FRAME_WORK': `'${process.env.FRAME_WORK}'`,
+                'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
             },
         }),
         resolve({
