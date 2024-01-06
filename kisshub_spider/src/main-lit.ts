@@ -12,8 +12,8 @@
 // @run-at document-end
 // ==/UserScript==
 
-import pure from './css/pure.css';
-import styles from './css/index.css';
+import pure from './css/pure.module.css';
+import styles from './css/index.module.css';
 import { defineComponent } from './vue-lit';
 import { reactive } from '@vue/reactivity';
 import { html, render } from 'lit-html';

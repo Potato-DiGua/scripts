@@ -2,11 +2,17 @@ import gulp from 'gulp';
 import { rollup } from 'rollup';
 import rollupConfig from './rollup.config.js';
 import terser from '@rollup/plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 
  async function buildMain () {
     const bundle = await rollup({
         ...rollupConfig,
         input: './src/main.tsx',
+        plugins: [
+            ...rollupConfig.plugins,
+            postcss({
+            }),
+        ]
     });
 
     await bundle.write({
@@ -23,7 +29,11 @@ import terser from '@rollup/plugin-terser';
 async function buildMainLit() {
     const bundle = await rollup({
         ...rollupConfig,
-        input: './src/main-lit.tsx',
+        input: './src/main-lit.ts',
+        plugins: [
+            ...rollupConfig.plugins,
+            postcss({inject: false, autoModules: false}),
+        ],
     });
 
     await bundle.write({

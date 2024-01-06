@@ -26,13 +26,6 @@ export default {
             entries: [...frameConfig.rollupAlias],
         }),
         babel({ babelHelpers: 'bundled', extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'] }),
-        postcss({
-            plugins: [
-                cssnano({
-                    preset: 'default',
-                }),
-            ],
-        }),
         // cleaner({
         //     targets: ['./dist/'],
         // }),
