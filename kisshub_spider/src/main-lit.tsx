@@ -12,8 +12,8 @@
 // @run-at document-end
 // ==/UserScript==
 
-import pure from './css/pure.module.css';
-import styles from './css/index.module.css';
+import pure from './css/pure.css';
+import styles from './css/index.css';
 import { defineComponent } from './vue-lit';
 import { reactive } from '@vue/reactivity';
 import { html, render } from 'lit-html';
@@ -67,7 +67,7 @@ import { html, render } from 'lit-html';
     }
 
 
-    defineComponent('quick-download', ['href'],  (props: { href: string }) => {
+    defineComponent('quick-download', ['href'],  (props: { href: string }, {root}) => {
         const state = reactive({
             loading: false
         });
@@ -85,19 +85,20 @@ import { html, render } from 'lit-html';
             const magnetUrl = await getMagnetUrlFromNet(props.href);
             copyText(magnetUrl);
         }
-
+        
         return ()=> html`
+            <style>${pure}${styles}</style>
             <td>
                 <button
                     style="marginRight: '5px'"
-                    class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
+                    class="pure-button pure-button-primary"
                     @click=${onDownloadClick}
                     >
                         下载
-                        <span class=${styles.loading} style=${state.loading ? "" : "display: none"}></span>
+                        <span class="loading" style=${state.loading ? "" : "display: none"}></span>
                 </button>
                 <button
-                    class=${`${pure['pure-button']} ${pure['pure-button-primary']}`}
+                    class="pure-button pure-button-primary"
                     @click=${onCopyClick}
                 >
                     复制磁力链接

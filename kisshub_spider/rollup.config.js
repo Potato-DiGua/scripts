@@ -27,7 +27,6 @@ export default {
         }),
         babel({ babelHelpers: 'bundled', extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'] }),
         postcss({
-            modules: true,
             plugins: [
                 cssnano({
                     preset: 'default',

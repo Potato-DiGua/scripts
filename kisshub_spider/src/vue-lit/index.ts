@@ -6,8 +6,7 @@ import {
 
 let currentInstance
 
-
-export type factoryType = (props: any)=>()=>TemplateResult<1>;
+export type factoryType = (props: any, options: { root: ShadowRoot }) => () => TemplateResult<1>;
 
 export function defineComponent(name: string, factory: factoryType):void;
 export function defineComponent(name: string, propDefs:string[], factory: factoryType):void;
@@ -26,11 +25,13 @@ export function defineComponent(name: string, propDefs: any, factory?: any) {
       constructor() {
         super()
         const props = (this._props = shallowReactive({}))
+
+        const root = this.attachShadow({ mode: 'closed' })
         currentInstance = this
-        const template = factory.call(this, props)
+        const template = factory.call(this, props, { root })
         currentInstance = null
         this._bm && this._bm.forEach((cb) => cb())
-        const root = this.attachShadow({ mode: 'closed' })
+
         let isMounted = false
         effect(() => {
           if (isMounted) {

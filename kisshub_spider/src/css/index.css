@@ -1,0 +1,22 @@
+.loading {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border: 2px solid rgba(256, 256, 256, 0.2);
+    border-left-color: #FFF;
+    border-radius: 100%;
+    animation: circle infinite 0.75s linear;
+
+    display: inline-block;
+    margin-left: 3px
+}
+
+@keyframes circle {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
